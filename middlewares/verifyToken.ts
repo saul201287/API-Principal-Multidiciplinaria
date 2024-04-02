@@ -21,9 +21,13 @@ export const verifyToken = async (
           next();
         }
       }
+    }else{
+        res
+        .status(500)
+        .json({ message: "Acceso denegado, token invalido"});
     }
   } catch (error) {
-    res
+     res
       .status(500)
       .json({ message: "Acceso denegado, token invalido", data: error });
   }
