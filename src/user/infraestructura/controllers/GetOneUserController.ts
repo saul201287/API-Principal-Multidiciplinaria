@@ -14,31 +14,21 @@ export class GetOneUserController {
 
       console.log(users);
 
-      if (users) {
+      if (typeof users !== "string") {
         res.status(200).send({
           status: "success",
-          data: users.map((user: any) => {
-            return {
-              id: user.id,
-              nombre: user.nombre,
-              apellidoP: user.apellidoP,
-              apellidoM: user.apellidoM,
-              username: user.username,
-              email: user.email,
-              password: user.password,
-            };
-          }),
+          data: users,
         });
       } else
         res.status(404).send({
           status: "error",
-          msn: "No se encontro el recurso",
+          msn: users,
         });
     } catch (error) {
       res.status(500).send({
         status: "error",
         data: "Ocurrio un error",
-        msn: error,
+        msg: error,
       });
     }
   }

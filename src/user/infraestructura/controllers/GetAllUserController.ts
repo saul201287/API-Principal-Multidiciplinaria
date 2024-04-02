@@ -20,6 +20,7 @@ export class GetAllUserController {
               username: user.username,
               email: user.email,
               password: user.password,
+              plan: user.plan
             };
           }),
         });

@@ -21,14 +21,15 @@ export class CreateUserUseCase {
     apellidoM: string,
     username: string,
     email: string,
-    password: string
+    password: string,
+    plan: string
   ): Promise<{user:User, token: string} | null> {
     try {
       const newPassword = await this.options.encodePassword(password);
       id =  this.createId.asignarId()
       await this.nodeMailer.run(email, nombre);     
       let tokenNew = await this.webToken.run(
-        nombre,
+        username,
         String(process.env.SECRET_TOKEN),
         100 * 100
       );
@@ -42,6 +43,7 @@ export class CreateUserUseCase {
         email,
         username,
         newPassword,
+        plan
       );
       const data: any = {
         user: user,

@@ -27,7 +27,8 @@ const putUserUseCase = new PutUserUseCase(mysqlUsertRepository);
 const getAllUserUseCase = new GetAllUserUseCase(mysqlUsertRepository);
 const getOneUserUseCase = new GetOneUserUseCase(
   mysqlUsertRepository,
-  servicesEncrypt
+  servicesEncrypt,
+  servicesTokensUser
 );
 const createUserUseCase = new CreateUserUseCase(
   mysqlUsertRepository,

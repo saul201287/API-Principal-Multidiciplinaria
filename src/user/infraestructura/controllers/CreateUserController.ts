@@ -16,7 +16,8 @@ export class CreateUserController {
         data.apellidoM,
         data.username,
         data.email,
-        data.password
+        data.password,
+        data.plan
       );
       console.log(user.user);
       
@@ -31,7 +32,8 @@ export class CreateUserController {
             apellidoM: user?.user.apellidoM,
             username: user?.user.username,
             email: user?.user.email,
-            password: user?.user.password
+            password: user?.user.password,
+            plan: user?.plan
           },
         });
       else

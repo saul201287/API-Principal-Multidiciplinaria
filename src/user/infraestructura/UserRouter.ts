@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../../../middlewares/verifyToken";
 import {
   getAllUserController,
   getOneUserController,
@@ -7,7 +8,7 @@ import {
 } from "./DependenciesUser";
 export const userRouter = express.Router();
 
-userRouter.get("/", (req, res) => {
+userRouter.get("/", verifyToken, (req, res) => {
   getAllUserController
     .run(req, res)
     .then(() => {
@@ -47,7 +48,7 @@ userRouter.post("/", (req, res) => {
     });
 });
 
-userRouter.put("/newUser", (req, res) => {
+userRouter.put("/newUser", verifyToken, (req, res) => {
   putUserController
     .run(req, res)
     .then(() => {

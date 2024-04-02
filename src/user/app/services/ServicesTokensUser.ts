@@ -2,9 +2,9 @@ import { ServicesTokens } from "../../infraestructura/servicesTokens/ServicesTok
 
 export class ServicesTokensUser {
   constructor(readonly webToken: ServicesTokens) {}
-  async run(id: string, secret: string, expiresIn: number): Promise<string | null>{
+  async run(username: string, secret: string, expiresIn: number): Promise<string | null>{
     try {
-      const token = await this.webToken.singToken(id, secret);
+      const token = await this.webToken.singToken(username, secret);
       return token;
     } catch (error) {
         console.log(error);
