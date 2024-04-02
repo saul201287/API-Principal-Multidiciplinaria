@@ -24,7 +24,7 @@ export const verifyToken = async (
     }else{
         res
         .status(500)
-        .json({ message: "Acceso denegado, token invalido"});
+        .json({ message: "Acceso denegado, token no encontrado"});
     }
   } catch (error) {
      res
