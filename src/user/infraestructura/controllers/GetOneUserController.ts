@@ -11,11 +11,8 @@ export class GetOneUserController {
         data.username,
         data.password
       );
-
-      console.log(users);
-
       if (typeof users !== "string") {
-        res.status(200).send({
+        res.status(200).header("token",users.token).send({
           status: "success",
           data: users,
         });

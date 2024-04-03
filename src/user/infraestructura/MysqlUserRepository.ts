@@ -89,7 +89,6 @@ export class MysqlUserRepository implements UserRepository {
               user.plan
             )
         );
-        console.log(dataUsers);
 
         return { user: users[0], token: "" };
       } else {
@@ -100,30 +99,16 @@ export class MysqlUserRepository implements UserRepository {
       return "ocurrio un error:" + error;
     }
   }
-  async putUser(username: string, newPassword: string): Promise<null | User[]> {
-    const sql = "UDATE users SET password where username= ? ";
-    let params: any[] = [username, newPassword];
+  async putUserPassword (username: string, newPassword: string): Promise<string | number> {
+    const sql = "UPDATE users SET password = ? where username= ? ";
+    let params: any[] = [newPassword,username];
     try {
       const [data]: any = await query(sql, params);
       const dataUsersNew = Object.values(JSON.parse(JSON.stringify(data)));
-      console.log(dataUsersNew);
-
-      return dataUsersNew.map(
-        (user: any) =>
-          new User(
-            user.id,
-            user.nombre,
-            user.apellidoP,
-            user.apellidoM,
-            user.email,
-            user.username,
-            user.password,
-            user.plan
-          )
-      );
+      return 1
     } catch (error) {
       console.log(error);
-      return null;
+      return "Ocurrio un error: " + error;
     }
   }
 }

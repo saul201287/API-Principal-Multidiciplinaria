@@ -4,7 +4,7 @@ import {
   getAllUserController,
   getOneUserController,
   createUserController,
-  putUserController,
+  putUserPasswordController,
 } from "./DependenciesUser";
 export const userRouter = express.Router();
 
@@ -48,8 +48,8 @@ userRouter.post("/", (req, res) => {
     });
 });
 
-userRouter.put("/newUser", verifyToken, (req, res) => {
-  putUserController
+userRouter.put("/newPass", verifyToken, (req, res) => {
+  putUserPasswordController
     .run(req, res)
     .then(() => {
       return null;

@@ -1,10 +1,10 @@
-import { PutUserUseCase } from "../app/PutUserUseCase";
+import { PutUserPasswordUseCase } from "../app/PutUserPasswordUseCase";
 import { GetAllUserUseCase } from "../app/GetAllUserUserCase";
 import { GetOneUserUseCase } from "../app/GetOneUserUseCase";
 import { CreateUserUseCase } from "../app/CreateUserUseCase";
 import { ServicesTokensUser } from "../app/services/ServicesTokensUser";
 import { ServicesEmailUser } from "../app/services/ServicesEmailUser";
-import { PutUserController } from "./controllers/PutUserController";
+import { PutUserController } from "./controllers/PutUserPasswordController";
 import { GetAllUserController } from "./controllers/GetAllUserController";
 import { GetOneUserController } from "./controllers/GetOneUserController";
 import { CreateUserController } from "./controllers/CreateUserController";
@@ -23,7 +23,7 @@ const idUser = new IdServices();
 const servicesTokensUser = new ServicesTokensUser(webTokens);
 const servicesEmailUser = new ServicesEmailUser(servicesEmail);
 
-const putUserUseCase = new PutUserUseCase(mysqlUsertRepository);
+const putUserPasswordUseCase = new PutUserPasswordUseCase(servicesEncrypt,mysqlUsertRepository);
 const getAllUserUseCase = new GetAllUserUseCase(mysqlUsertRepository);
 const getOneUserUseCase = new GetOneUserUseCase(
   mysqlUsertRepository,
@@ -38,7 +38,7 @@ const createUserUseCase = new CreateUserUseCase(
   idUser
 );
 
-export const putUserController = new PutUserController(putUserUseCase);
+export const putUserPasswordController = new PutUserController(putUserPasswordUseCase);
 export const getAllUserController = new GetAllUserController(getAllUserUseCase);
 export const getOneUserController = new GetOneUserController(getOneUserUseCase);
 export const createUserController = new CreateUserController(createUserUseCase);

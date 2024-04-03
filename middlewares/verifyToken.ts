@@ -23,12 +23,12 @@ export const verifyToken = async (
       }
     }else{
         res
-        .status(500)
+        .status(401)
         .json({ message: "Acceso denegado, token no encontrado"});
     }
   } catch (error) {
      res
-      .status(500)
+      .status(401)
       .json({ message: "Acceso denegado, token invalido", data: error });
   }
 };
