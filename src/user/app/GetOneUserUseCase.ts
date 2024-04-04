@@ -21,7 +21,7 @@ export class GetOneUserUseCase {
         const pass = await this.options.compareTo(password, password2);
         if (pass) {
           let token = await this.webToken.run(
-            username,
+            result.user.id,
             String(process.env.SECRET_TOKEN),
             100 * 100
           );

@@ -23,7 +23,7 @@ export class CreateUserController {
       
       if (user)
       
-        res.status(201).header("token",data.token).send({
+        res.status(201).header("token",(user.token)).send({
           status: "success",
           data: {
             id: user?.user.id,

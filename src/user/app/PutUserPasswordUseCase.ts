@@ -1,10 +1,12 @@
 import { UserRepository } from "../domain/repository/UserRepository";
 import { IEncryptServices } from "./services/IEncryptServices";
+import { Notification } from "../infraestructura/servicesRabbitMQ/servicesRabbitMQ";
 
 export class PutUserPasswordUseCase {
   constructor(
     readonly options: IEncryptServices,
-    readonly userRepository: UserRepository
+    readonly userRepository: UserRepository,
+    readonly notificationPutPassword: Notification
   ) {}
 
   async run(
@@ -23,6 +25,9 @@ export class PutUserPasswordUseCase {
             username,
             newPassword2
           );
+          const send = await this.notificationPutPassword.sendNotificationPutPassword(data.user.email)
+          console.log(send);
+          
           return result;
         } else {
           return "La contraseña no coincide";
@@ -31,6 +36,8 @@ export class PutUserPasswordUseCase {
         return data;
       }
     } catch (error) {
+      console.error(error);
+      
       return "ocurrio un error:" + error;
     }
   }

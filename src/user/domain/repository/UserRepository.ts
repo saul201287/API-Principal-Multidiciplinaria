@@ -14,4 +14,5 @@ export interface UserRepository {
   ): Promise<{user:User, token:string} | null>;
   getOne(username: string, password: string): Promise<{user:User,token:string } | string>;
   putUserPassword(username: string, newPassword: string): Promise<string | number>;
+  putUserName(username:string, usernamenew: string): Promise <string | number>
 }

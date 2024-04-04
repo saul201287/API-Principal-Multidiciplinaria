@@ -111,4 +111,18 @@ export class MysqlUserRepository implements UserRepository {
       return "Ocurrio un error: " + error;
     }
   }
+  async putUserName(username: string, usernamenew: string): Promise<string | number> {
+    const sql = "UPDATE users SET username = ? where username= ? ";
+    let params: any[] = [usernamenew, username];
+    try {
+      const [data]: any = await query(sql, params);
+      const dataUsersNew = Object.values(JSON.parse(JSON.stringify(data)));
+      console.log(dataUsersNew ,2);
+      
+      return 1
+    } catch (error) {
+      console.log(error);
+      return "Ocurrio un error: " + error;
+    }
+  }
 }

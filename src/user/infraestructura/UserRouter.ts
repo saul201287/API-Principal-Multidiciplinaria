@@ -5,6 +5,7 @@ import {
   getOneUserController,
   createUserController,
   putUserPasswordController,
+  putUserUserNameController
 } from "./DependenciesUser";
 export const userRouter = express.Router();
 
@@ -50,6 +51,17 @@ userRouter.post("/", (req, res) => {
 
 userRouter.put("/newPass", verifyToken, (req, res) => {
   putUserPasswordController
+    .run(req, res)
+    .then(() => {
+      return null;
+    })
+    .catch((err) => {
+      res.status(500).send({ error: err.message, msg: "Error en el servidor" });
+    });
+});
+
+userRouter.put("/newUser", verifyToken, (req, res) => {
+  putUserUserNameController
     .run(req, res)
     .then(() => {
       return null;
