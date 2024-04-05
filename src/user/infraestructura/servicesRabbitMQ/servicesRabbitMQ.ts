@@ -35,7 +35,7 @@ export class Notification implements INotification {
       if (status)
         setTimeout(() => {
           conn.close();
-        }, 1000);
+        }, 8000);
       return status;
     } catch (error) {
       console.error(error);
