@@ -3,12 +3,14 @@ import morgan from "morgan";
 import { Signale } from "signale";
 import * as dotenv from "dotenv";
 import helmet from "helmet";
+import cors from "cors"
 import { userRouter } from "./user/infraestructura/UserRouter";
 
 const app = express();
 app.use(helmet.hidePoweredBy());
 dotenv.config();
 app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
 app.use("/user", userRouter);
 
