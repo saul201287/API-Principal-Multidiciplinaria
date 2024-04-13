@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserUseCase } from "../../app/CreateUserUseCase";
+import { ValidatorValues } from "../validationes/Validationes";
 
 
 export class CreateUserController {
@@ -7,8 +8,19 @@ export class CreateUserController {
 
   async run(req: Request, res: Response) {
     const data = req.body;
-    
+    const validationes = new ValidatorValues()
     try {
+      if(await validationes.validationesUsername(data.username) > 0){
+        res.status(409).send({
+          status: "error",
+          data: "El nombre de usuario ya se encuntra registrado",
+        });
+      }else if(await validationes.validationesEmail(data.email) > 0){
+        res.status(409).send({
+          status: "error",
+          data: "El correo ingresado ya se encuntra registrado",
+        });
+      }else{
       const user : any = await this.createUserUseCase.run(
         data.id,
         data.nombre,
@@ -19,11 +31,9 @@ export class CreateUserController {
         data.password,
         data.plan
       );
-      console.log(user.user);
       
       if (user)
-      
-        res.status(201).header("token",(user.token)).send({
+        res.status(201).json({
           status: "success",
           data: {
             id: user?.user.id,
@@ -35,12 +45,14 @@ export class CreateUserController {
             password: user?.user.password,
             plan: user?.plan
           },
+          token: user.token
         });
       else
         res.status(204).send({
           status: "error",
           data: "NO fue posible agregar el registro",
         });
+      }
     } catch (error) {
       res.status(500).send({
         status: "error",

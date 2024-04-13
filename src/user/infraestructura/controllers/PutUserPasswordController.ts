@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PutUserPasswordUseCase } from "../../app/PutUserPasswordUseCase";
+import { ValidatorValues } from "../validationes/Validationes";
 
 export class PutUserController {
   constructor(readonly putUserUseCase: PutUserPasswordUseCase) {}
@@ -7,6 +8,14 @@ export class PutUserController {
   async run(req: Request, res: Response) {
     const data = req.body;
     try {
+      const validationes = new ValidatorValues()
+      const bandera = await validationes.validatePassword(data.username, data.newPassword)
+      if (bandera) 
+        res.status(409).send({
+        status: "error",
+        data: "La contraseña no puede ser identica a la anterior",
+      });
+      else{
       const user = await this.putUserUseCase.run(
         data.username,
         data.password,
@@ -23,6 +32,7 @@ export class PutUserController {
           status: "ocurrio un error",
           data: user,
         });
+      }
     } catch (error) {
       res.status(500).send({
         status: "error",

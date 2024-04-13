@@ -10,15 +10,12 @@ export const verifyToken = async (
     let token = req.headers["x-token-access"];
     if (typeof token === "string") {
       let access = verify(token, process.env.SECRET_TOKEN || " ");
-      console.log(access);
-      
       let userFind = await query(
         "SELECT COUNT(*) AS count FROM users WHERE id = ?",
         [access]
       );
       let userFind2: any = Object.values(JSON.parse(JSON.stringify(userFind)));
       if (typeof userFind2 === "object") {
-        console.log(userFind2[0][0].count,3);
         if (userFind2[0][0].count > 0) {
           next();
         }else{

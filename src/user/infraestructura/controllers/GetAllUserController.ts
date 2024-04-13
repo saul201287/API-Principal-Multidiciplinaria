@@ -30,7 +30,7 @@ export class GetAllUserController {
           msn: "Ocurrio algún problema",
         });
     } catch (error) {
-      res.status(204).send({
+      res.status(500).send({
         status: "error",
         data: "Ocurrio un error",
         msn: error,

@@ -7,10 +7,11 @@ export class ServicesEmail implements IServicesEmail {
       const info = await transporter.sendMail({
         from: `${process.env.EMAIL_USER}`,
         to: email,
-        subject: `Bienvenido ${name} 🎈🎈🎈`,
+        subject: `Bienvenido ${name} 🎈🎉🥳🎉🎈`,
         html: `
-        <b>Ten por seguro que con nosotros la seguridad de tu bicicleta es de confiar y fiar 😉.</b><br /> 
-        <b>Gracias por usar nuestra aplicación y tener confíanza en nosotros</b>`,
+        <b>Gracias por usar nuestra aplicación y tener confíanza en nosotros</b><br />
+        <b>Ten por seguro que con nosotros la seguridad de tu bicicleta esta en buenas manos 😉.</b><br />
+        `,
       });
       if (info) {
         console.log("email enviado");

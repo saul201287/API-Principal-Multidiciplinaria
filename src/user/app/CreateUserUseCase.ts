@@ -27,15 +27,11 @@ export class CreateUserUseCase {
     try {
       const newPassword = await this.options.encodePassword(password);
       id = this.createId.asignarId();
-      console.log(id);
-      
       let tokenNew = await this.webToken.run(
         id,
         String(process.env.SECRET_TOKEN),
         100 * 100
       );
-      console.log(tokenNew,44);
-      
       const user: any = await this.userRepository.createUser(
         id,
         nombre,
