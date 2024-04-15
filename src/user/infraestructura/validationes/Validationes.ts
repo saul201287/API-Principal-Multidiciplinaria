@@ -49,7 +49,8 @@ export class ValidatorValues {
               user.email,
               user.username,
               user.password,
-              user.plan
+              user.plan,
+              user.duracion
             )
         );
         if (data[0].password != undefined) {

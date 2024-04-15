@@ -25,7 +25,7 @@ export class PutUserPasswordUseCase {
             username,
             newPassword2
           );
-          //const send = await this.notificationPutPassword.sendNotificationPutPassword(data.user.email)
+          const send = await this.notificationPutPassword.sendNotificationPutPassword(data.user.email)
           return result;
         } else {
           return "La contraseña no coincide";

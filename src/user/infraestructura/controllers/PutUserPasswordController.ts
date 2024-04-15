@@ -22,7 +22,7 @@ export class PutUserController {
         data.newPassword
       );
       if (typeof user !=="string")
-        res.status(301).send({
+        res.status(201).send({
           status: "success",
           message:"Contraseña editada corretamente"
           },

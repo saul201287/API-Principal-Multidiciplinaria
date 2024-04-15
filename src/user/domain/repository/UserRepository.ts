@@ -1,7 +1,7 @@
 import { User } from "../entities/User";
 
 export interface UserRepository {
-  getAll(): Promise<User[] | null>;
+  getAll(username: string): Promise<User[] | null>;
   createUser(
     id: string,
     nombre: string,
@@ -10,10 +10,16 @@ export interface UserRepository {
     email: string,
     username: string,
     newPassword: string,
-    plan: string
-  ): Promise<{user:User, token:string} | null>;
-  getOne(username: string, password: string): Promise<{user:User,token:string } | string>;
-  putUserPassword(username: string, newPassword: string): Promise<string | number>;
-  putUserName(username:string, usernamenew: string): Promise <string | number>
-  
+    plan: number,
+    duracion: string
+  ): Promise<{ user: User; token: string } | null>;
+  getOne(
+    username: string,
+    password: string
+  ): Promise<{ user: User; token: string } | string>;
+  putUserPassword(
+    username: string,
+    newPassword: string
+  ): Promise<string | number>;
+  putUserName(username: string, usernamenew: string): Promise<string | number>;
 }

@@ -14,7 +14,7 @@ export class PutUserNameController {
         data.usernamenew
       );
       if (typeof user !=="string")
-        res.status(301).send({
+        res.status(201).send({
           status: "success",
           message:"Nombre de usuario editado corretamente"
           },

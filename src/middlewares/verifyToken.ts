@@ -1,6 +1,6 @@
 import { verify } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { query } from "../src/database/mysql";
+import { query } from "../database/mysql";
 export const verifyToken = async (
   req: Request,
   res: Response,

@@ -6,7 +6,7 @@ export class GetAllUserController {
 
   async run(req: Request, res: Response) {
     try {
-      const users = await this.getAllUserUseCase.run();
+      const users = await this.getAllUserUseCase.run(req.params.username);
       console.log(users);
       if (users) {
         res.status(200).send({
@@ -19,8 +19,8 @@ export class GetAllUserController {
               apellidoM: user.apellidoM,
               username: user.username,
               email: user.email,
-              password: user.password,
-              plan: user.plan
+              plan: user.plan,
+              saldo: user.duracion,
             };
           }),
         });

@@ -22,7 +22,8 @@ export class CreateUserUseCase {
     username: string,
     email: string,
     password: string,
-    plan: string
+    plan: number,
+    duracion:string
   ): Promise<{ user: User; token: string } | null> {
     try {
       const newPassword = await this.options.encodePassword(password);
@@ -40,7 +41,8 @@ export class CreateUserUseCase {
         email,
         username,
         newPassword,
-        plan
+        plan,
+        duracion
       );
       const data: any = {
         user: user,

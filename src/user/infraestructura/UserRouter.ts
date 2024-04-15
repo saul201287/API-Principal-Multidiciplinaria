@@ -1,15 +1,16 @@
 import express from "express";
-import { verifyToken } from "../../../middlewares/verifyToken";
+import { verifyToken } from "../../middlewares/verifyToken";
 import {
   getAllUserController,
   getOneUserController,
   createUserController,
   putUserPasswordController,
-  putUserUserNameController
+  putUserUserNameController,
+  createPaymentController,
 } from "./DependenciesUser";
 export const userRouter = express.Router();
 
-userRouter.get("/", verifyToken, (req, res) => {
+userRouter.get("/:username", verifyToken, (req, res) => {
   getAllUserController
     .run(req, res)
     .then(() => {
@@ -62,6 +63,17 @@ userRouter.put("/newPass", verifyToken, (req, res) => {
 
 userRouter.put("/newUser", verifyToken, (req, res) => {
   putUserUserNameController
+    .run(req, res)
+    .then(() => {
+      return null;
+    })
+    .catch((err) => {
+      res.status(500).send({ error: err.message, msg: "Error en el servidor" });
+    });
+});
+
+userRouter.post("/pay", verifyToken, (req, res) => {
+  createPaymentController
     .run(req, res)
     .then(() => {
       return null;

@@ -3,12 +3,11 @@ import { User } from "../domain/entities/User";
 import { UserRepository } from "../domain/repository/UserRepository";
 
 export class MysqlUserRepository implements UserRepository {
-  async getAll(): Promise<User[] | null> {
-    const sql = "SELECT * FROM users ";
+  async getAll(username: string): Promise<User[] | null> {
+    const sql = "SELECT * FROM users where username = ?";
     try {
-      const [data]: any = await query(sql, []);
+      const [data]: any = await query(sql, [username]);
       const dataUsers = Object.values(JSON.parse(JSON.stringify(data)));
-
       return dataUsers.map(
         (user: any) =>
           new User(
@@ -19,7 +18,8 @@ export class MysqlUserRepository implements UserRepository {
             user.email,
             user.username,
             user.password,
-            user.plan
+            user.plan,
+            user.duracion
           )
       );
     } catch (error) {
@@ -36,10 +36,11 @@ export class MysqlUserRepository implements UserRepository {
     email: string,
     username: string,
     password: string,
-    plan: string
+    plan: number,
+    duracion: string
   ): Promise<{ user: User; token: string } | null> {
     const sql =
-      "INSERT INTO users (id,nombre,apellidoP, apellidoM, email, username, password, plan) VALUES (?, ?, ?, ?, ?, ?,?, ?)";
+      "INSERT INTO users (id,nombre,apellidoP, apellidoM, email, username, password, plan, duracion) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?)";
     const params: any[] = [
       id,
       nombre,
@@ -49,6 +50,7 @@ export class MysqlUserRepository implements UserRepository {
       username,
       password,
       plan,
+      duracion,
     ];
     try {
       const [result]: any = await query(sql, params);
@@ -60,7 +62,8 @@ export class MysqlUserRepository implements UserRepository {
         email,
         username,
         password,
-        plan
+        plan,
+        duracion
       );
       return user;
     } catch (error) {
@@ -86,7 +89,8 @@ export class MysqlUserRepository implements UserRepository {
               user.email,
               user.username,
               user.password,
-              user.plan
+              user.plan,
+              user.duracion
             )
         );
 
@@ -99,27 +103,33 @@ export class MysqlUserRepository implements UserRepository {
       return "ocurrio un error:" + error;
     }
   }
-  async putUserPassword (username: string, newPassword: string): Promise<string | number> {
+  async putUserPassword(
+    username: string,
+    newPassword: string
+  ): Promise<string | number> {
     const sql = "UPDATE users SET password = ? where username= ? ";
-    let params: any[] = [newPassword,username];
+    let params: any[] = [newPassword, username];
     try {
       const [data]: any = await query(sql, params);
       const dataUsersNew = Object.values(JSON.parse(JSON.stringify(data)));
-      return 1
+      return 1;
     } catch (error) {
       console.log(error);
       return "Ocurrio un error: " + error;
     }
   }
-  async putUserName(username: string, usernamenew: string): Promise<string | number> {
+  async putUserName(
+    username: string,
+    usernamenew: string
+  ): Promise<string | number> {
     const sql = "UPDATE users SET username = ? where username= ? ";
     let params: any[] = [usernamenew, username];
     try {
       const [data]: any = await query(sql, params);
       const dataUsersNew = Object.values(JSON.parse(JSON.stringify(data)));
-      console.log(dataUsersNew ,2);
-      
-      return 1
+      console.log(dataUsersNew, 2);
+
+      return 1;
     } catch (error) {
       console.log(error);
       return "Ocurrio un error: " + error;
