@@ -35,8 +35,8 @@ export class PaymentServices implements IPayments {
       else if ((paquete = 3)) time = "720:00:00";
       else if ((paquete = 4)) time = "8760:00:00";
       const sql2 =
-        "UPDATE users SET `db-bicycle`.duracion = ADDTIME(duracion, ? )WHERE id = ?";
-      const data2 = await query(sql2, [time, iduser]);
+        "UPDATE users SET plan= ?, duracion = ADDTIME(duracion, ? )WHERE id = ?";
+      const data2 = await query(sql2, [paquete,time, iduser]);
 
       const sql =
         "INSERT INTO pagos (id,concepto,cantidad,numerodetarjeta, personafisica,telefono, correo, paquete,cvv, fechadevencimiento,iduser) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
