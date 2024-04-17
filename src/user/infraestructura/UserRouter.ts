@@ -1,5 +1,6 @@
 import express from "express";
 import { verifyToken } from "../../middlewares/verifyToken";
+import { ApagaraMQTT } from "./helpers/ApagarMQTT";
 import {
   getAllUserController,
   getOneUserController,
@@ -77,6 +78,17 @@ userRouter.post("/pay", verifyToken, (req, res) => {
     .run(req, res)
     .then(() => {
       return null;
+    })
+    .catch((err) => {
+      res.status(500).send({ error: err.message, msg: "Error en el servidor" });
+    });
+});
+
+userRouter.post("/off", async (req, res) => {
+  const apagaraMQTT = new ApagaraMQTT()
+   await apagaraMQTT.run()
+    .then((resp) => {
+      return res.status(201).send("Apagado")
     })
     .catch((err) => {
       res.status(500).send({ error: err.message, msg: "Error en el servidor" });

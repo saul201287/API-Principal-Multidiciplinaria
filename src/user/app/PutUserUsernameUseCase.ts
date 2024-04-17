@@ -15,8 +15,8 @@ export class PutUserUserNameUseCase {
           username,
           usernamenew
         );
-        //const send =
-          //await this.notificationPutUserName.sendNotificationPutUsername(data.user.email);
+        const send =
+          await this.notificationPutUserName.sendNotificationPutUsername(data.user.email);
 
         return result;
       } else {
