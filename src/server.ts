@@ -10,7 +10,10 @@ const app = express();
 app.use(helmet.hidePoweredBy());
 dotenv.config();
 app.use(morgan("dev"));
-app.use(cors());
+
+// Habilitar CORS para todas las solicitudes de origen
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 app.use("/user", userRouter);
 

@@ -29,15 +29,21 @@ export class PaymentServices implements IPayments {
         Fvencimiento,
         iduser,
       ];
+      
+      
       let time = "00:00:00";
-      if (paquete == 1) time = "24:00:00";
-      else if ((paquete = 2)) time = "168:00:00";
-      else if ((paquete = 3)) time = "720:00:00";
-      else if ((paquete = 4)) time = "8760:00:00";
-      const sql2 =
-        "UPDATE users SET plan= ?, duracion = ADDTIME(duracion, ? )WHERE id = ?";
-      const data2 = await query(sql2, [paquete,time, iduser]);
 
+      if (paquete == 1) time = "24:00:00";
+      else if ((paquete == 2)) time = "168:00:00";
+      else if ((paquete == 3)) time = "720:00:00";
+      else if ((paquete == 4)) time = "8760:00:00";
+
+      console.log(paquete);
+      const sql3 = "UPDATE users SET plan=? WHERE id = ?"
+      await query(sql3,[paquete,iduser])
+      const sql2 =
+        "UPDATE users SET plan = ?, duracion = ADDTIME(duracion, ? )WHERE id = ?";
+      const data2 = await query(sql2, [paquete,time, iduser]);      
       const sql =
         "INSERT INTO pagos (id,concepto,cantidad,numerodetarjeta, personafisica,telefono, correo, paquete,cvv, fechadevencimiento,iduser) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
       const data: any = await query(sql, body);
