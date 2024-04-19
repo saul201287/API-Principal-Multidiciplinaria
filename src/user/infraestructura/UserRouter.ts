@@ -85,12 +85,14 @@ userRouter.post("/pay", verifyToken, (req, res) => {
 });
 
 userRouter.post("/off", async (req, res) => {
+  console.log(req.body);
+  
   const apagaraMQTT = new ApagaraMQTT()
    await apagaraMQTT.run()
     .then((resp) => {
-      return res.status(201).send("Apagado")
+      return res.status(201).json({messagge:"Apagado"})
     })
     .catch((err) => {
-      res.status(500).send({ error: err.message, msg: "Error en el servidor" });
+      res.status(500).json({ error: err.message, msg: "Error en el servidor" });
     });
 });

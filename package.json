@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "dev": "tsnd --respawn --clear ./src/server.ts"
+    "dev": "tsnd --respawn --clear ./src/server.ts",
+    "start": "pm2 start ./build/src/server.js",
+    "stop": "pm2 stop all"
   },
   "keywords": [],
   "author": "",

@@ -11,7 +11,6 @@ app.use(helmet.hidePoweredBy());
 dotenv.config();
 app.use(morgan("dev"));
 
-// Habilitar CORS para todas las solicitudes de origen
 app.use(cors({ origin: "*" }));
 
 app.use(express.json());

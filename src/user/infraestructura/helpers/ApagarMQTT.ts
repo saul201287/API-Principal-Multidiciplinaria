@@ -22,6 +22,7 @@ await client.on('connect', () => {
     }
     
   });
+  return "ya lo apague papi"
 });
 
 // Maneja los eventos de error
